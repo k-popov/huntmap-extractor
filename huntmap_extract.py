@@ -54,11 +54,19 @@ if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
 
     if len(sys.argv) < 2:
-        raise Exception(f'Usage: {sys.argv[0]} <public|private> < map.js > map.geojson')
+        raise Exception(f'Usage: {sys.argv[0]} <public|private> <map.js> > map.geojson OR {sys.argv[0]} <public|private> < map.js > map.geojson')
 
-    data = json.loads(
-            sys.stdin.read().lstrip('gmxAPI._vectorTileReceiver(').rstrip(')')
+    if len(sys.argv) == 3:
+        logging.info(f'Will read input data from {sys.argv[2]}')
+        with open(sys.argv[2], 'r') as infile:
+            data = json.loads(
+                infile.read().lstrip('gmxAPI._vectorTileReceiver(').rstrip(')')
             )
+    else:
+        logging.info(f'Will read input data from stdin')
+        data = json.loads(
+                sys.stdin.read().lstrip('gmxAPI._vectorTileReceiver(').rstrip(')')
+                )
     logging.info(f'Loaded {len(data["values"])} from input')
 
     features = []
