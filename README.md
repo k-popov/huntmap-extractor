@@ -13,6 +13,10 @@ Then run the converter with appropriate are type:
 ```
 python3 huntmap_extract.py <public|private> < map.js > map.geojson
 ```
+Alternatively the script may accept input file name as second argument (source file in the below example is `map.js`):
+```
+python3 huntmap_extract.py <public|private> map.js > map.geojson
+```
 The resulting file is GeoJSON which may be vizualized e.g. at https://geojson.tools/ , used in some other viewer or converted to KML.
 
 ## Found area links
